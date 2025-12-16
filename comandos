@@ -1,0 +1,25 @@
+Actualiza el pip
+python -m pip install --upgrade pip
+
+Instalamos las dependencias listadas en este archivo
+pip install -r requirements.txt
+
+Crea el entorno virtual
+python -m venv .venv
+
+Lo activa
+.\.venv\Scripts\Activate.ps1
+
+Nos deja salir del entonrno (.venv)
+deactivate
+
+Instalamos librerias por si no se nos han instalado
+pip install pydantic
+pip install fastapi
+pip install uvicorn
+
+Verificamos que tenemos instalado el FastAPI
+pip show fastapi
+
+Para lanzar el FastAPI
+uvicorn src.main:app --reload
