@@ -21,5 +21,5 @@ pip install uvicorn
 Verificamos que tenemos instalado el FastAPI
 pip show fastapi
 
-Para lanzar el FastAPI
+Para lanzar el FastAPI, lanzarlo fuera del venv.
 uvicorn src.main:app --reload
