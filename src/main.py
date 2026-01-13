@@ -1,6 +1,8 @@
 from typing import Annotated
 from fastapi import FastAPI, Depends, HTTPException
 from contextlib import asynccontextmanager
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 from sqlmodel import Session, select
 
 
@@ -23,6 +25,9 @@ SessionDep = Annotated[Session, Depends(get_sesion)]
 
 # Crear la instancia de la aplicación FastAPI
 app = FastAPI(lifespan=lifespan)
+
+app.mount("/static", StaticFiles(directory="src/static"), name="static")
+templates = Jinja2Templates(directory="src/templates")
 
 
 # Endpoint para listar todos los alumnos
