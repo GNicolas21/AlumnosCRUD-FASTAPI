@@ -1,0 +1,21 @@
+{% extends "fragments/base.html" %} {% block title%}Alumnos{% endblock %} {%
+block content %}
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Nombre</th>
+    <th>Grado</th>
+    <th>Fecha de Nacimiento</th>
+    <th>Tiene asignaturas pendientes</th>
+  </tr>
+  {% for alumno in alumnos %}
+  <tr>
+    <td>{{ alumno.id }}</td>
+    <td>{{ alumno.nombre }}</td>
+    <td>{{ alumno.grado }}</td>
+    <td>{{ alumno.fecha_nacimiento }}</td>
+    <td>{{ alumno.tiene_asignaturas_pendientes }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %} {% block footer %} Autor: Giorgio Osorio {% endblock %}

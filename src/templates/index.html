@@ -1,0 +1,12 @@
+{% extends "fragments/base.html" %}
+{% block title %}Lista de Alumnos{% endblock %}
+
+{% block content %}
+<h1>Bienvenido a la Gestión de Alumnos</h1>
+<p><a href="{{ url_for('static', path='static.html') }}">Contenido estático</a></p>
+<p><a href="{{ url_for('ver_alumnos') }}">Ver lista de alumnos</a></p>
+{% endblock %}
+
+{% block footer %}
+FOOTER desde Index
+{% endblock %}

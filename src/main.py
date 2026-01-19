@@ -4,6 +4,8 @@ from contextlib import asynccontextmanager
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from sqlmodel import Session, select
+from fastapi.requests import Request
+from fastapi.responses import HTMLResponse
 
 
 from src.data.db import init_db, get_sesion
@@ -26,9 +28,22 @@ SessionDep = Annotated[Session, Depends(get_sesion)]
 # Crear la instancia de la aplicación FastAPI
 app = FastAPI(lifespan=lifespan)
 
+# Configuración de archivos estáticos y plantillas
+# http://127.0.0.1:8000/static/static.html
 app.mount("/static", StaticFiles(directory="src/static"), name="static")
 templates = Jinja2Templates(directory="src/templates")
 
+#Ruta para página principal
+@app.get("/", response_class=HTMLResponse)
+async def root(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
+
+@app.get("/alumnos", response_class=HTMLResponse)
+async def ver_alumnos(request: Request, session: SessionDep):
+    repo = AlumnosRepository(session)
+    alumnos = repo.get_all_alumnos()
+    return templates.TemplateResponse("alumnos/alumnos.html", {"request": request, "alumnos":alumnos})
 
 # Endpoint para listar todos los alumnos
 @app.get("/alumnos", response_model = list[AlumnoResponse])
