@@ -11,6 +11,7 @@ from fastapi.responses import HTMLResponse
 from src.data.db import init_db, get_sesion
 from src.models.alumno import Alumno, AlumnoCreate, AlumnoResponse, AlumnoUpdate, map_create_to_alumno, map_update_to_alumno, map_alumno_to_response
 from src.data.alumnos_repository import AlumnosRepository
+from src.routers.api_alumnos_router import router as api_alumnos_router
 
 import uvicorn
 
@@ -33,6 +34,9 @@ app = FastAPI(lifespan=lifespan)
 app.mount("/static", StaticFiles(directory="src/static"), name="static")
 templates = Jinja2Templates(directory="src/templates")
 
+# Incluir el router para la API de alumnos
+app.include_router(api_alumnos_router)
+
 #Ruta para página principal
 @app.get("/", response_class=HTMLResponse)
 async def root(request: Request):
@@ -44,53 +48,6 @@ async def ver_alumnos(request: Request, session: SessionDep):
     repo = AlumnosRepository(session)
     alumnos = repo.get_all_alumnos()
     return templates.TemplateResponse("alumnos/alumnos.html", {"request": request, "alumnos":alumnos})
-
-# Endpoint para listar todos los alumnos
-@app.get("/alumnos", response_model = list[AlumnoResponse])
-def listar_alumnos(session: SessionDep):
-    # Obtener todos los alumnos de la "base de datos"
-    repo = AlumnosRepository(session)
-    alumnos = repo.get_all_alumnos()
-    return [map_alumno_to_response(alumno) for alumno in alumnos]
-
-
-@app.post("/alumnos", response_model=AlumnoResponse)
-async def create_alumno(alumno_create: AlumnoCreate, session: SessionDep):
-    # Verificar si el alumno ya existe
-    repo = AlumnosRepository(session)
-    alumno = map_create_to_alumno(alumno_create)
-    alumno_creado = repo.create_alumno(alumno)
-    return map_alumno_to_response(alumno_creado)
-
-@app.get("/alumnos/{alumno_id}", response_model=Alumno)
-def get_alumno_por_id(alumno_id: int, session: SessionDep):
-    repo = AlumnosRepository(session)
-    alumno_encontrado = repo.get_alumno(alumno_id)
-    if alumno_encontrado is None:
-        raise HTTPException(status_code=404, detail="Alumno no encontrado")
-    return map_alumno_to_response(alumno_encontrado)
-
-@app.delete("/alumnos/{alumno_id}", status_code=204)
-def borrar_alumno(alumno_id: int, session: SessionDep):
-    repo = AlumnosRepository(session)
-    alumno_encontrado = repo.get_alumno(alumno_id)
-    if alumno_encontrado is None:
-        raise HTTPException(status_code=404, detail="Alumno no encontrado")
-    repo.delete_alumno(alumno_id)
-    return {"mensaje": "Alumno eliminado correctamente"}
-
-@app.patch("/alumnos/{alumno_id}", response_model=Alumno, status_code=200)
-def actualizar_alumno(alumno_id: int, alumno:Alumno, session: SessionDep):
-    repo = AlumnosRepository(session)
-    alumno_encontrado = repo.get_alumno(alumno_id)
-    if alumno_encontrado is None:
-        raise HTTPException(status_code=404, detail="Alumno no encontrado")
-    # exclude_unset para actualizar solo los campos proporcionados
-    alumno_data = alumno.model_dump(exclude_unset=True)
-    # sqlmodel_update para actualizar el objeto existente
-    alumno_encontrado.sqlmodel_update(alumno_data)
-    repo.update_alumno(alumno_id, alumno_data)
-    return map_alumno_to_response(alumno_encontrado)
 
 
 if __name__ == "__main__":
