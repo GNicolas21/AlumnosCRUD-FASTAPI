@@ -1,0 +1,12 @@
+{% extends "fragments/base.html" %}
+{% block title %}Detalle del Alumno{% endblock %}
+
+{% block content %}
+        <h2>📋 Detalle del Alumno {{ alumno.id }}</h2>
+            <p><strong>Nombre:</strong> {{ alumno.nombre }}</p>
+            <p><strong>Grado:</strong> {{ alumno.grado }}</p>
+            <p><strong>Fecha de Nacimiento:</strong> {{ alumno.fecha_nacimiento }}</p>
+            <p><strong>Tiene Asignaturas Pendientes:</strong> {{ alumno.tiene_asignaturas_pendientes }}</p>
+{% endblock %}
+
+{% block footer %} Autor: Giorgio Osorio {% endblock %}

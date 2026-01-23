@@ -5,7 +5,7 @@ from pydantic import BaseModel
 class Alumno(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     nombre: str = Field(index = True, max_length=50)
-    grado: str = Field(index = True, max_length=2)
+    grado: str = Field(index = True, max_length=100)
     fecha_nacimiento: date | None = Field(nullable=True) 
     tiene_asignaturas_pendientes: bool | None = Field(default=None, nullable=True)
 

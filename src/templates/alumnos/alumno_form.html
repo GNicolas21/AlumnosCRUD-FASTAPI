@@ -1,0 +1,45 @@
+{%extends "fragments/base.html" %} {% block content %}
+
+<div class="form-container">
+  <h2>📝 Nuevo Alumno</h2>
+  <form
+    method="post"
+    action="/alumnos/new"
+    enctype="application/x-www-form-urlencoded"
+  >
+    <div class="form-group">
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" name="nombre" required />
+    </div>
+    <div class="form-group">
+      <label for="grado">Grado:</label>
+      <input type="text" id="grado" name="grado" maxlength="10" required />
+    </div>
+
+    <div class="form-group">
+      <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+      <input
+        type="date"
+        id="fecha_nacimiento"
+        name="fecha_nacimiento"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="tiene_asignaturas_pendientes"
+        >Tiene Asignaturas Pendientes:</label
+      >
+      <input
+        type="checkbox"
+        id="tiene_asignaturas_pendientes"
+        name="tiene_asignaturas_pendientes"
+      />
+    </div>
+
+    <button type="submit">Crear Alumno</button>
+  </form>
+
+  <a href="/alumnos" class="back-link">← Volver a la lista de alumnos</a>
+</div>
+{% endblock %}

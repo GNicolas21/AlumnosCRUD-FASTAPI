@@ -1,6 +1,7 @@
-from fastapi import APIRouter, HTTPException
+from typing import Annotated
+from fastapi import APIRouter, HTTPException, Depends
 from sqlmodel import Session
-from src.data.db import SessionDep
+from src.data.db import get_sesion
 from src.models.alumno import Alumno, AlumnoCreate, AlumnoResponse, Alumno
 from src.data.alumnos_repository import AlumnosRepository
 from src.models.alumno import map_create_to_alumno, map_alumno_to_response
@@ -8,9 +9,11 @@ from src.models.alumno import map_create_to_alumno, map_alumno_to_response
 
 router = APIRouter(prefix="/api/alumnos", tags=["alumnos"])
 
+SessionDep = Annotated[Session, Depends(get_sesion)]
+
 # Endpoint para listar todos los alumnos
 @router.get("/", response_model = list[AlumnoResponse])
-def listar_alumnos(session: SessionDep):
+async def listar_alumnos(session: SessionDep):
     # Obtener todos los alumnos de la "base de datos"
     repo = AlumnosRepository(session)
     alumnos = repo.get_all_alumnos()
@@ -25,7 +28,7 @@ async def create_alumno(alumno_create: AlumnoCreate, session: SessionDep):
     alumno_creado = repo.create_alumno(alumno)
     return map_alumno_to_response(alumno_creado)
 
-@router.get("/{alumno_id}", response_model=Alumno)
+@router.get("/{alumno_id}", response_model=AlumnoResponse)
 async def get_alumno_por_id(alumno_id: int, session: SessionDep):
     repo = AlumnosRepository(session)
     alumno_encontrado = repo.get_alumno(alumno_id)
@@ -53,4 +56,15 @@ async def actualizar_alumno(alumno_id: int, alumno:Alumno, session: SessionDep):
     # sqlmodel_update para actualizar el objeto existente
     alumno_encontrado.sqlmodel_update(alumno_data)
     repo.update_alumno(alumno_id, alumno_data)
+    return map_alumno_to_response(alumno_encontrado)
+
+@router.put("/{alumno_id}", response_model=AlumnoResponse)
+async def cambia_alumno(alumno: int, session: SessionDep):
+    repo = AlumnosRepository(session)
+    alumno_encontrado = repo.get_alumno(alumno.id)
+    if not alumno_encontrado:
+        raise HTTPException(status_code=404, detail="Alumno no encontrado")
+    alumno_data = alumno.model_dump()
+    alumno_encontrado.sqlmodel_update(alumno_data)
+    repo.update_alumno(alumno_encontrado.id, alumno_data)
     return map_alumno_to_response(alumno_encontrado)
