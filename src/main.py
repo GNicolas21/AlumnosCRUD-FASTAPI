@@ -9,10 +9,10 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from datetime import datetime
 
 
-from src.data.db import init_db, get_sesion
-from src.models.alumno import Alumno, AlumnoCreate, AlumnoResponse, AlumnoUpdate, map_create_to_alumno, map_update_to_alumno, map_alumno_to_response
-from src.data.alumnos_repository import AlumnosRepository
-from src.routers.api_alumnos_router import router as api_alumnos_router
+from data.db import init_db, get_sesion
+from models.alumno import Alumno, AlumnoCreate, AlumnoResponse, AlumnoUpdate, map_create_to_alumno, map_update_to_alumno, map_alumno_to_response
+from data.alumnos_repository import AlumnosRepository
+from routers.api_alumnos_router import router as api_alumnos_router
 
 import uvicorn
 
@@ -32,8 +32,8 @@ app = FastAPI(lifespan=lifespan)
 
 # Configuración de archivos estáticos y plantillas
 # http://127.0.0.1:8000/static/static.html
-app.mount("/static", StaticFiles(directory="src/static"), name="static")
-templates = Jinja2Templates(directory="src/templates")
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
 
 # Incluir el router para la API de alumnos
 app.include_router(api_alumnos_router)
@@ -103,4 +103,4 @@ async def alumno_por_id(alumno_id: int, request: Request, session: SessionDep):
     return templates.TemplateResponse("alumnos/alumno_detalle.html", {"request": request, "alumno": alumno_response})
 
 if __name__ == "__main__":
-    uvicorn.run("src.main:app", host="127.0.0.1", port=8000, reload=True)
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)

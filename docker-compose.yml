@@ -1,9 +1,19 @@
-name: fastapi-mysql
+name: fastapi-alumnos
 
 services:
-  db-mysql:
+  fastapi-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fastapi-app-alumnos
+    restart: always
+    ports:
+      - "8000:8000"
+    depends_on:
+      - fastapi-db
+  fastapi-db:
     image: mysql
-    container_name: db-mysql
+    container_name: fastapi-db-alumnos
     environment:
       MYSQL_ROOT_PASSWORD: user
       MYSQL_DATABASE: alumnosdb

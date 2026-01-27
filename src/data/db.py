@@ -1,4 +1,4 @@
-from src.models.alumno import Alumno
+from models.alumno import Alumno
 # Session es utilizado para interacciones con la base de datos
 # create_engine para crear la conexión a la base de datos
 # SQLModel es la clase base para los modelos de datos
@@ -7,7 +7,7 @@ from sqlmodel import create_engine, SQLModel, Session
 
 db_user: str = "user"
 db_password: str = "1234"
-db_server: str = "localhost"
+db_server: str = "fastapi-db"
 db_port: int = 3306
 db_name: str = "alumnosdb"
 

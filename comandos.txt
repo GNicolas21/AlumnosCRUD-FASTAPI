@@ -23,3 +23,12 @@ pip show fastapi
 
 Para lanzar el FastAPI, lanzarlo fuera del venv.
 uvicorn src.main:app --reload
+
+Para generar la imagen Docker de FastApi
+docker compose build fastapi-app
+
+Para arrancar todos los docker
+docker compose up
+
+Para arrancar el Docker compose env:
+docker compose -f .\docke-compose-env.yml up | docker compose -f .\docke-compose-env.yml build fastapi-app

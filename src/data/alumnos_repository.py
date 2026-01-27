@@ -1,5 +1,5 @@
 from sqlmodel import Session, select
-from src.models.alumno import Alumno
+from models.alumno import Alumno
 
 class AlumnosRepository:
     def __init__(self, session: Session):

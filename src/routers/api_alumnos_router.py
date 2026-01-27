@@ -1,10 +1,10 @@
 from typing import Annotated
 from fastapi import APIRouter, HTTPException, Depends
 from sqlmodel import Session
-from src.data.db import get_sesion
-from src.models.alumno import Alumno, AlumnoCreate, AlumnoResponse, Alumno
-from src.data.alumnos_repository import AlumnosRepository
-from src.models.alumno import map_create_to_alumno, map_alumno_to_response
+from data.db import get_sesion
+from models.alumno import Alumno, AlumnoCreate, AlumnoResponse, Alumno
+from data.alumnos_repository import AlumnosRepository
+from models.alumno import map_create_to_alumno, map_alumno_to_response
 
 
 router = APIRouter(prefix="/api/alumnos", tags=["alumnos"])
@@ -45,7 +45,7 @@ async def borrar_alumno(alumno_id: int, session: SessionDep):
     repo.delete_alumno(alumno_id)
     return {"mensaje": "Alumno eliminado correctamente"}
 
-@router.patch("/{alumno_id}", response_model=Alumno, status_code=200)
+@router.patch("/{alumno_id}", response_model=AlumnoResponse, status_code=200)
 async def actualizar_alumno(alumno_id: int, alumno:Alumno, session: SessionDep):
     repo = AlumnosRepository(session)
     alumno_encontrado = repo.get_alumno(alumno_id)
@@ -59,7 +59,7 @@ async def actualizar_alumno(alumno_id: int, alumno:Alumno, session: SessionDep):
     return map_alumno_to_response(alumno_encontrado)
 
 @router.put("/{alumno_id}", response_model=AlumnoResponse)
-async def cambia_alumno(alumno: int, session: SessionDep):
+async def cambia_alumno(alumno: Alumno, session: SessionDep):
     repo = AlumnosRepository(session)
     alumno_encontrado = repo.get_alumno(alumno.id)
     if not alumno_encontrado:
