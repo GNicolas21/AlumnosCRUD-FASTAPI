@@ -1,0 +1,23 @@
+name: fastapi-alumnos
+
+services:
+  fastapi-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fastapi-app-alumnos
+    restart: always
+    ports:
+      - "8000:8000"
+    depends_on:
+      - fastapi-db
+  fastapi-db:
+    image: mysql
+    container_name: fastapi-db-alumnos
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "${DB_PORT}:3306"

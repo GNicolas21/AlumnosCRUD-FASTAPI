@@ -3,7 +3,8 @@ from models.alumno import Alumno
 # create_engine para crear la conexión a la base de datos
 # SQLModel es la clase base para los modelos de datos
 from sqlmodel import create_engine, SQLModel, Session
-
+import os
+from dotenv import load_dotenv
 
 db_user: str = "user"
 db_password: str = "1234"
