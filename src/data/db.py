@@ -6,12 +6,11 @@ from sqlmodel import create_engine, SQLModel, Session
 import os
 from dotenv import load_dotenv
 
-db_user: str = "user"
-db_password: str = "1234"
-db_server: str = "fastapi-db"
-db_port: int = 3306
-db_name: str = "alumnosdb"
-
+db_user: str = os.getenv("DB_USER", "user")
+db_password: str = os.getenv("DB_PASSWORD", "1234")
+db_server: str = os.getenv("DB_SERVER", "fastapi-db")
+db_port: int = int(os.getenv("DB_PORT", 3306))
+db_name: str = os.getenv("DB_NAME", "alumnosdb")
 #DATABASE_URL para la conexión a la base de datos MySQL
 DATABASE_URL = f"mysql+pymysql://{db_user}:{db_password}@{db_server}:{db_port}/{db_name}"
 engine = create_engine(DATABASE_URL, echo=True)

@@ -7,6 +7,7 @@ block content %}
     <th>Grado</th>
     <th>Fecha de Nacimiento</th>
     <th>Tiene asignaturas pendientes</th>
+    <th>Operaciones</th>
   </tr>
   {% for alumno in alumnos %}
   <tr>
@@ -15,6 +16,7 @@ block content %}
     <td>{{ alumno.grado }}</td>
     <td>{{ alumno.fecha_nacimiento }}</td>
     <td>{{ alumno.tiene_asignaturas_pendientes }}</td>
+    <td><a href="/alumnos/{{ alumno.id }}">Ver detalles</a></td>
   </tr>
   {% endfor %}
 </table>

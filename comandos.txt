@@ -21,7 +21,7 @@ pip install uvicorn
 Verificamos que tenemos instalado el FastAPI
 pip show fastapi
 
-Para lanzar el FastAPI, lanzarlo fuera del venv.
+Para lanzar el FastAPI, lanzarlo dentro del venv.
 uvicorn src.main:app --reload
 
 Para generar la imagen Docker de FastApi
