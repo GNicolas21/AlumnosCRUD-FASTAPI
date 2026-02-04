@@ -30,5 +30,5 @@ docker compose build fastapi-app
 Para arrancar todos los docker
 docker compose up
 
-Para arrancar el Docker compose env:
-docker compose -f .\docke-compose-env.yml up | docker compose -f .\docke-compose-env.yml build fastapi-app
+Para forzar a Docker a que reconstruya la imagen con los archivos más recientes y reinicie el servicio.
+docker compose up --build -d

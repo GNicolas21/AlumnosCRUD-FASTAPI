@@ -1,12 +1,110 @@
-{% extends "fragments/base.html" %}
-{% block title %}Lista de Alumnos{% endblock %}
+{% extends "fragments/base.html" %} {% block title %}Bienvenido - Gestión de
+Alumnos{% endblock %} {% block content %}
+<div class="hero-section text-center py-5 mb-5">
+  <div class="container">
+    <h1 class="display-4 text-primary mb-4">
+      <i class="fas fa-graduation-cap me-3"></i>
+      Bienvenido a la Gestión de Alumnos
+    </h1>
+    <p class="lead text-muted mb-4">
+      Sistema completo para administrar la información de estudiantes
+    </p>
 
-{% block content %}
-<h1>Bienvenido a la Gestión de Alumnos</h1>
-<p><a href="{{ url_for('static', path='static.html') }}">Contenido estático</a></p>
-<p><a href="{{ url_for('ver_alumnos') }}">Ver lista de alumnos</a></p>
-{% endblock %}
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body text-center">
+                <div
+                  class="feature-icon bg-primary bg-gradient text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                  style="width: 4rem; height: 4rem"
+                >
+                  <i class="fas fa-users fa-lg"></i>
+                </div>
+                <h5 class="card-title">Ver Alumnos</h5>
+                <p class="card-text">
+                  Consulta la lista completa de estudiantes registrados
+                </p>
+                <a href="/alumnos" class="btn btn-primary">
+                  <i class="fas fa-list me-2"></i>Ver Lista
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body text-center">
+                <div
+                  class="feature-icon bg-success bg-gradient text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                  style="width: 4rem; height: 4rem"
+                >
+                  <i class="fas fa-plus fa-lg"></i>
+                </div>
+                <h5 class="card-title">Nuevo Alumno</h5>
+                <p class="card-text">
+                  Registra un nuevo estudiante en el sistema
+                </p>
+                <a href="/alumnos/new" class="btn btn-success">
+                  <i class="fas fa-user-plus me-2"></i>Crear
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body text-center">
+                <div
+                  class="feature-icon bg-info bg-gradient text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                  style="width: 4rem; height: 4rem"
+                >
+                  <i class="fas fa-file-alt fa-lg"></i>
+                </div>
+                <h5 class="card-title">Contenido Estático</h5>
+                <p class="card-text">
+                  Accede a información adicional del sistema
+                </p>
+                <a
+                  href="{{ url_for('static', path='static.html') }}"
+                  class="btn btn-info"
+                >
+                  <i class="fas fa-external-link-alt me-2"></i>Abrir
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-{% block footer %}
-FOOTER desde Index
+<!-- Sección de estadísticas -->
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-header bg-light">
+          <h5 class="card-title mb-0">
+            <i class="fas fa-chart-bar me-2"></i>
+            Panel de Control
+          </h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            Utiliza la navegación superior para acceder a las diferentes
+            funcionalidades del sistema.
+          </p>
+          <div class="alert alert-info d-flex align-items-center" role="alert">
+            <i class="fas fa-lightbulb me-2"></i>
+            <div>
+              <strong>Consejo:</strong> Puedes gestionar estudiantes, ver
+              detalles individuales y mantener la información actualizada.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

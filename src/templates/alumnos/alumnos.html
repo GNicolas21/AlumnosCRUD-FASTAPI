@@ -1,23 +1,157 @@
-{% extends "fragments/base.html" %} {% block title%}Alumnos{% endblock %} {%
-block content %}
-<table>
-  <tr>
-    <th>ID</th>
-    <th>Nombre</th>
-    <th>Grado</th>
-    <th>Fecha de Nacimiento</th>
-    <th>Tiene asignaturas pendientes</th>
-    <th>Operaciones</th>
-  </tr>
-  {% for alumno in alumnos %}
-  <tr>
-    <td>{{ alumno.id }}</td>
-    <td>{{ alumno.nombre }}</td>
-    <td>{{ alumno.grado }}</td>
-    <td>{{ alumno.fecha_nacimiento }}</td>
-    <td>{{ alumno.tiene_asignaturas_pendientes }}</td>
-    <td><a href="/alumnos/{{ alumno.id }}">Ver detalles</a></td>
-  </tr>
-  {% endfor %}
-</table>
-{% endblock %} {% block footer %} Autor: Giorgio Osorio {% endblock %}
+{% extends "fragments/base.html" %} {% block title %}Lista de Alumnos{% endblock
+%} {% block content %}
+<div class="container mt-4">
+  <!-- Header de la página -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h2">
+      <i class="fas fa-users text-primary me-3"></i>
+      Lista de Alumnos
+    </h1>
+    <a href="/alumnos/new" class="btn btn-success btn-lg">
+      <i class="fas fa-plus me-2"></i>
+      Nuevo Alumno
+    </a>
+  </div>
+
+  <!-- Tabla de alumnos -->
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h5 class="card-title mb-0">
+        <i class="fas fa-table me-2"></i>
+        Estudiantes Registrados 
+      </h5>
+    </div>
+    <div class="card-body p-0">
+      {% if alumnos %}
+      <div class="table-responsive">
+        <table class="table table-hover table-striped mb-0">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col"><i class="fas fa-hashtag me-2"></i>ID</th>
+              <th scope="col"><i class="fas fa-user me-2"></i>Nombre</th>
+              <th scope="col">
+                <i class="fas fa-graduation-cap me-2"></i>Grado
+              </th>
+              <th scope="col">
+                <i class="fas fa-calendar me-2"></i>Fecha de Nacimiento
+              </th>
+              <th scope="col" class="text-center">
+                <i class="fas fa-exclamation-triangle me-2"></i>Asignaturas
+                Pendientes
+              </th>
+              <th scope="col" class="text-center">
+                <i class="fas fa-cogs me-2"></i>Acciones
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for alumno in alumnos %}
+            <tr>
+              <td>
+                <span class="badge bg-secondary">{{ alumno.id }}</span>
+              </td>
+              <td>
+                <strong>{{ alumno.nombre }}</strong>
+              </td>
+              <td>
+                <span class="badge bg-info">{{ alumno.grado }}</span>
+              </td>
+              <td>
+                <span class="text-muted">
+                  <i class="fas fa-calendar-alt me-1"></i>
+                  {{ alumno.fecha_nacimiento }}
+                </span>
+              </td>
+              <td class="text-center">
+                {% if alumno.tiene_asignaturas_pendientes %}
+                <span class="badge bg-danger text-dark">
+                  <i class="fas fa-exclamation-circle me-1"></i>
+                  Sí
+                </span>
+                {% else %}
+                <span class="badge bg-success">
+                  <i class="fas fa-check-circle me-1"></i>
+                  No
+                </span>
+                {% endif %}
+              </td>
+              <td class="text-center">
+                <a
+                  href="/alumnos/{{ alumno.id }}"
+                  class="btn btn-outline-primary btn-sm"
+                >
+                  <i class="fas fa-eye me-1"></i>
+                  Ver Detalles
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <div class="text-center py-5">
+        <i class="fas fa-users fa-3x text-muted mb-3"></i>
+        <h5 class="text-muted">No hay alumnos registrados</h5>
+        <p class="text-muted">Comienza agregando tu primer estudiante</p>
+        <a href="/alumnos/new" class="btn btn-primary">
+          <i class="fas fa-plus me-2"></i>
+          Agregar Primer Alumno
+        </a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Información adicional -->
+  {% if alumnos %}
+  <div class="row mt-4">
+    <div class="col-md-4">
+      <div class="card bg-primary text-white">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <i class="fas fa-users fa-2x me-3"></i>
+            <div>
+              <h5 class="card-title mb-0">Total Alumnos</h5>
+              <h3 class="mb-0">{{ alumnos|length }}</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card bg-success text-white">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <i class="fas fa-check-circle fa-2x me-3"></i>
+            <div>
+              <h5 class="card-title mb-0">Sin Pendientes</h5>
+              <h3 class="mb-0">
+                {{ alumnos|selectattr('tiene_asignaturas_pendientes', 'eq',
+                false)|list|length }}
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card bg-warning text-dark">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <i class="fas fa-exclamation-triangle fa-2x me-3"></i>
+            <div>
+              <h5 class="card-title mb-0">Con Pendientes</h5>
+              <h3 class="mb-0">
+                {{ alumnos|selectattr('tiene_asignaturas_pendientes', 'eq',
+                true)|list|length }}
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

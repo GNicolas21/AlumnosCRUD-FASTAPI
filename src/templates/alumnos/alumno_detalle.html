@@ -1,12 +1,165 @@
-{% extends "fragments/base.html" %}
-{% block title %}Detalle del Alumno{% endblock %}
+{% extends "fragments/base.html" %} {% block title %}Detalle del Alumno - {{
+alumno.nombre }}{% endblock %} {% block content %}
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <!-- Header -->
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2 text-primary">
+          <i class="fas fa-user-circle me-3"></i>
+          Detalle del Alumno
+        </h1>
+        <a href="/alumnos" class="btn btn-outline-primary">
+          <i class="fas fa-arrow-left me-2"></i>
+          Volver a Lista
+        </a>
+      </div>
 
-{% block content %}
-        <h2>📋 Detalle del Alumno {{ alumno.id }}</h2>
-            <p><strong>Nombre:</strong> {{ alumno.nombre }}</p>
-            <p><strong>Grado:</strong> {{ alumno.grado }}</p>
-            <p><strong>Fecha de Nacimiento:</strong> {{ alumno.fecha_nacimiento }}</p>
-            <p><strong>Tiene Asignaturas Pendientes:</strong> {{ alumno.tiene_asignaturas_pendientes }}</p>
+      <!-- Tarjeta principal -->
+      <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+          <div class="row align-items-center">
+            <div class="col">
+              <h5 class="card-title mb-0">
+                <i class="fas fa-id-badge me-2"></i>
+                Información del Estudiante
+              </h5>
+            </div>
+            <div class="col-auto">
+              <span class="badge bg-light text-primary fs-6">
+                ID: {{ alumno.id }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <!-- Información personal -->
+              <div class="mb-4">
+                <h6 class="text-uppercase text-muted mb-3">
+                  <i class="fas fa-user me-2"></i>
+                  Datos Personales
+                </h6>
+
+                <div class="mb-3">
+                  <div class="d-flex align-items-center">
+                    <i class="fas fa-signature text-primary me-3"></i>
+                    <div>
+                      <small class="text-muted d-block">Nombre Completo</small>
+                      <strong class="h5">{{ alumno.nombre }}</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <div class="d-flex align-items-center">
+                    <i class="fas fa-birthday-cake text-success me-3"></i>
+                    <div>
+                      <small class="text-muted d-block"
+                        >Fecha de Nacimiento</small
+                      >
+                      <strong>{{ alumno.fecha_nacimiento }}</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <!-- Información académica -->
+              <div class="mb-4">
+                <h6 class="text-uppercase text-muted mb-3">
+                  <i class="fas fa-graduation-cap me-2"></i>
+                  Datos Académicos
+                </h6>
+
+                <div class="mb-3">
+                  <div class="d-flex align-items-center">
+                    <i class="fas fa-school text-info me-3"></i>
+                    <div>
+                      <small class="text-muted d-block">Grado</small>
+                      <span class="badge bg-info fs-6">{{ alumno.grado }}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <div class="d-flex align-items-center">
+                    <i
+                      class="fas fa-clipboard-check me-3 {% if alumno.tiene_asignaturas_pendientes %}text-warning{% else %}text-success{% endif %}"
+                    ></i>
+                    <div>
+                      <small class="text-muted d-block">Estado Académico</small>
+                      {% if alumno.tiene_asignaturas_pendientes %}
+                      <span class="badge bg-warning text-dark fs-6">
+                        <i class="fas fa-exclamation-circle me-1"></i>
+                        Con Asignaturas Pendientes
+                      </span>
+                      {% else %}
+                      <span class="badge bg-success fs-6">
+                        <i class="fas fa-check-circle me-1"></i>
+                        Al Día con Asignaturas
+                      </span>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer bg-light">
+          <div class="row">
+            <div class="col">
+              <small class="text-muted">
+                <i class="fas fa-calendar me-1"></i>
+                Registro actualizado
+              </small>
+            </div>
+            <div class="col-auto">
+              <div class="btn-group" role="group">
+                <a href="/alumnos" class="btn btn-sm btn-outline-secondary">
+                  <i class="fas fa-list me-1"></i>
+                  Todos los Alumnos
+                </a>
+                <a href="/alumnos/new" class="btn btn-sm btn-outline-success">
+                  <i class="fas fa-plus me-1"></i>
+                  Nuevo Alumno
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Información adicional -->
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body text-center">
+              <i class="fas fa-chart-line fa-2x text-primary mb-3"></i>
+              <h6 class="card-title">Seguimiento Académico</h6>
+              <p class="card-text text-muted small">
+                Monitoreo del progreso del estudiante
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body text-center">
+              <i class="fas fa-file-alt fa-2x text-success mb-3"></i>
+              <h6 class="card-title">Historial Académico</h6>
+              <p class="card-text text-muted small">
+                Registro completo de calificaciones
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
-
-{% block footer %} Autor: Giorgio Osorio {% endblock %}

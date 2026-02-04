@@ -1,16 +1,91 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome para iconos -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Estilos personalizados -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/styles.css') }}"
+    />
+
     {% block head %}
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}Gestión de Alumnos{% endblock %}</title>
     {% endblock %}
   </head>
-  <body>
-    <div id="content">
-      {% block content %} contenido por defecto {% endblock %}
-    </div>
-    <footer>{% block footer %} {% endblock %}</footer>
+  <body class="d-flex flex-column min-vh-100 p-0 m-0">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <i class="fas fa-graduation-cap me-2"></i>
+          Gestión de Alumnos
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/"
+                ><i class="fas fa-home me-1"></i>Inicio</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/alumnos"
+                ><i class="fas fa-users me-1"></i>Alumnos</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/alumnos/new"
+                ><i class="fas fa-plus me-1"></i>Nuevo Alumno</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="container py-4 flex-grow-1">
+      {% block content %}
+      <div class="alert alert-info">
+        <i class="fas fa-info-circle me-2"></i>
+        Contenido por defecto
+      </div>
+      {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer py-3 bg-dark text-white mt-auto shadow">
+      <div class="container text-center">
+        {% block footer %}
+        <p class="mb-0">
+          <i class="fas fa-code me-2"></i>
+          Desarrollado con FastAPI | © 2026
+        </p>
+        {% endblock %}
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    {% block scripts %}{% endblock %}
   </body>
 </html>
