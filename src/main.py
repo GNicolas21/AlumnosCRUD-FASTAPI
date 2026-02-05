@@ -32,8 +32,8 @@ app = FastAPI(lifespan=lifespan)
 
 # Configuración de archivos estáticos y plantillas
 # http://127.0.0.1:8000/static/static.html
-app.mount("/static", StaticFiles(directory="static"), name="static")
-templates = Jinja2Templates(directory="templates")
+app.mount("/static", StaticFiles(directory="src/static"), name="static")
+templates = Jinja2Templates(directory="src/templates")
 
 # Incluir el router para la API de alumnos
 app.include_router(api_alumnos_router)
