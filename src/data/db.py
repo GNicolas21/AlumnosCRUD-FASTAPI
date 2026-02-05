@@ -14,7 +14,7 @@ db_server: str = os.getenv("DB_SERVER", "fastapi-db")
 db_port: int = int(os.getenv("DB_PORT", 5432))
 db_name: str = os.getenv("DB_NAME", "alumnosdb")
 #DATABASE_URL para la conexión a la base de datos PostgreSQL
-DATABASE_URL = f"postgresql+psycopg://{db_user}:{db_password}@{db_server}:{db_port}/{db_name}"
+DATABASE_URL = f"postgresql+psycopg2://{db_user}:{db_password}@{db_server}:{db_port}/{db_name}"
 engine = create_engine(DATABASE_URL, echo=True)
 
 def get_sesion():
