@@ -1,4 +1,4 @@
-from models.alumno import Alumno
+from src.models.alumno import Alumno
 # Session es utilizado para interacciones con la base de datos
 # create_engine para crear la conexión a la base de datos
 # SQLModel es la clase base para los modelos de datos

@@ -1,10 +1,10 @@
 from typing import Annotated
 from fastapi import APIRouter, HTTPException, Depends
 from sqlmodel import Session
-from data.db import get_sesion
-from models.alumno import Alumno, AlumnoCreate, AlumnoResponse, Alumno
-from data.alumnos_repository import AlumnosRepository
-from models.alumno import map_create_to_alumno, map_alumno_to_response
+from src.data.db import get_sesion
+from src.models.alumno import Alumno, AlumnoCreate, AlumnoResponse, Alumno
+from src.data.alumnos_repository import AlumnosRepository
+from src.models.alumno import map_create_to_alumno, map_alumno_to_response
 
 
 router = APIRouter(prefix="/api/alumnos", tags=["alumnos"])

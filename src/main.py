@@ -9,10 +9,10 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from datetime import datetime
 
 
-from data.db import init_db, get_sesion
-from models.alumno import Alumno, AlumnoCreate, AlumnoResponse, AlumnoUpdate, map_create_to_alumno, map_update_to_alumno, map_alumno_to_response
-from data.alumnos_repository import AlumnosRepository
-from routers.api_alumnos_router import router as api_alumnos_router
+from src.data.db import init_db, get_sesion
+from src.models.alumno import Alumno, AlumnoCreate, AlumnoResponse, AlumnoUpdate, map_create_to_alumno, map_update_to_alumno, map_alumno_to_response
+from src.data.alumnos_repository import AlumnosRepository
+from src.routers.api_alumnos_router import router as api_alumnos_router
 
 import uvicorn
 
