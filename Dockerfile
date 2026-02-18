@@ -1,5 +1,5 @@
-# Use the official Python base image
-FROM python:3.13-slim
+# Use the official Python base image, usar la 3.11-slim y python-dotenv
+FROM python:3.11-slim
 
 # Set the working directory inside the container
 WORKDIR /app
