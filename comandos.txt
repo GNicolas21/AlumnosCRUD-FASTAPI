@@ -35,8 +35,7 @@ docker compose -f .\docke-compose-env.yml up | docker compose -f .\docke-compose
 
 
 Primera vez (con internet): 
-"docker compose build"             -Descarga Python 3.11, MySQL y todo el requirements.txt
+"docker compose build"                          -Descarga Python 3.11, MySQL y todo el requirements.txt
 
 Después (sin internet):
-docker compose build "app-retro"   - Solo reconstruye tu app cuando cambies código (usa caché local, muy rápido)
-docker compose up                  - Levanta todo
+docker compose up --build idealistos-app        -Levanta todo y reconstruye
